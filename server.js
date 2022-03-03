@@ -68,6 +68,10 @@ function sendemail(titled, descriptioned) {
         });
 }
 
+
+app.get('/', (req, res) => {
+    res.send('Upwork Notification!')
+  })
 //Start the server
 app.listen(PORT, () => {
     console.log(`Server is up and running at ${PORT}`);
