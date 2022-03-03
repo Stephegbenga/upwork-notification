@@ -33,9 +33,15 @@ watcher.on("new entries", function (entries) {
         result1 = filters.every(w => titled.includes(w).toLowerCase())
         result2 = filters.every(w => descriptioned.includes(w).toLowerCase())
 
-        if (result1 == true || result2 == true) {
+        if (filters.some((element) => {
+                return new RegExp(element, "ig").test(titled)
+            }) || filters.some((element) => {
+                return new RegExp(element, "ig").test(descriptioned)
+            })) {
             sendemail(titled, descriptioned)
         }
+
+
     });
 });
 
@@ -71,7 +77,7 @@ function sendemail(titled, descriptioned) {
 
 app.get('/', (req, res) => {
     res.send('Upwork Notification!')
-  })
+})
 //Start the server
 app.listen(PORT, () => {
     console.log(`Server is up and running at ${PORT}`);
